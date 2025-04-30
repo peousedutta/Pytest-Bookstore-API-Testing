@@ -19,8 +19,3 @@ This project demonstrates automated API testing using **Pytest** with **fixtures
 - **Base URL**: `https://bookstore.toolsqa.com`
 - **Swagger UI**: [Click here](https://bookstore.toolsqa.com/swagger/)
 - **Auth Type**: JWT-based token
-
----
-
-## 📁 Project Structure
-
