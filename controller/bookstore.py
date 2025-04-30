@@ -9,8 +9,7 @@ class BookStore:
 
 class AllBooks(BookStore):
     def perform_fetch_all_books(self):
-        response = requests.get(self.baseurl+self.books_base_endpoint)
-        return response.json()
+        return requests.get(self.baseurl+self.books_base_endpoint)
     
     def check_status_code_200(self) -> bool:
         response = self.perform_fetch_all_books()
@@ -37,10 +36,8 @@ class BookByBookId(BookStore):
         super().__init__()
 
     def perform_fetch_book_by_id(self,id:str):
-        url = self.baseurl+self.books_base_endpoint+'?ISBN='+id
-        print(f"[DEBUG] -- {url}")
-        bookData = requests.get(url)
-        return bookData.json()
+        url : str = self.baseurl + '/BookStore/V1/Book?ISBN=' + id
+        return requests.get(url)
 
     def check_get_book_by_id_responseTime(self, id:str) -> bool:
         raise NotImplementedError
