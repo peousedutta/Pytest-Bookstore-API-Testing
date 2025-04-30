@@ -1,12 +1,13 @@
 import requests
 import pytest
+import random
 from utilities.ReadConfigurations import ReadConfig
 from controller.bookstore import *
 
 class Test_001_bookstore_get_call:
     baseurl = ReadConfig.getApplicationUrl()
     all_books = AllBooks()
-    book_by_bookid = BookByBookId('abc')
+    book_by_bookid = BookByBookId()
     
     @pytest.mark.smoke
     def test_fetch_all_books(self):
@@ -19,5 +20,12 @@ class Test_001_bookstore_get_call:
     @pytest.mark.dev
     @pytest.mark.smoke
     def test_fetch_book_by_bookid(self):
-        id = 'abc'
-        response = requests.get(self.baseurl+self.get_all_books_path+'?ISBN='+id)
+        allBooksData = self.all_books.perform_fetch_all_books()
+        idList = [data["isbn"] for data in allBooksData["books"]]
+        index = random.randint(0, len(idList))
+
+        id = idList[index]
+        print(f"[DEBUG] -- {id}")
+        bookData = self.book_by_bookid.perform_fetch_book_by_id(id)
+        print(f"[DEBUG] -- {bookData}")
+

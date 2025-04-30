@@ -9,7 +9,8 @@ class BookStore:
 
 class AllBooks(BookStore):
     def perform_fetch_all_books(self):
-        return requests.get(self.baseurl+self.books_base_endpoint)
+        response = requests.get(self.baseurl+self.books_base_endpoint)
+        return response.json()
     
     def check_status_code_200(self) -> bool:
         response = self.perform_fetch_all_books()
@@ -32,16 +33,14 @@ class AllBooks(BookStore):
             return False
 
 class BookByBookId(BookStore):
-    def __init__(self, id:str):
+    def __init__(self):
         super().__init__()
-        self.id : str = id
 
-    def perform_fetch_book_by_id(self,id):
-        return requests.get(self.baseurl+self.books_base_endpoint+'?ISBN='+id)
+    def perform_fetch_book_by_id(self,id:str):
+        url = self.baseurl+self.books_base_endpoint+'?ISBN='+id
+        print(f"[DEBUG] -- {url}")
+        bookData = requests.get(url)
+        return bookData.json()
 
     def check_get_book_by_id_responseTime(self, id:str) -> bool:
-        response = self.perform_fetch_book_by_id(id)
-        if response.elapsed.total_seconds < 0.5:
-            return True
-        else:
-            return False
+        raise NotImplementedError
