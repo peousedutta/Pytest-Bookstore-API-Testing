@@ -5,5 +5,9 @@ config = ConfigParser()
 config.read("../configurations/config.ini")
 
 class ReadConfig:
+    @staticmethod
     def getApplicationUrl():
-        return config.get('info','baseurl')
+        try:
+            return config.get('info','baseurl')
+        except Exception as err:
+            raise Exception(f"[ERROR] Exception occured while fetch base url got --> {err}")
