@@ -1,5 +1,6 @@
 pytest
 requests
 httpx
+configparser
 pytest-asyncio
 pytest-html
