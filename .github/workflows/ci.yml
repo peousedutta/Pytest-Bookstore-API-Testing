@@ -30,4 +30,4 @@ jobs:
     
     - name: Test regression of code
       run: |
-        pytest tests\test_bookstore_fetch_apis.py -m regression
+        pytest tests/test_bookstore_fetch_apis.py -m regression
