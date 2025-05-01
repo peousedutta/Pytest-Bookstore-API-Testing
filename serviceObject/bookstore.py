@@ -1,3 +1,4 @@
+import time
 import httpx
 from utilities.ReadConfigurations import ReadConfig
 
@@ -12,20 +13,22 @@ class BookStore:
         else:
             return False
         
-    def check_responseTime(self, response, time) -> bool:
-        if response.elapsed.total_seconds < time:
-            return True
-        else:
-            return False
-        
     def check_contentType(self) -> bool:
         raise NotImplementedError
 
 
 class AllBooks(BookStore):
+    def __init__(self):
+        super().__init__()
+        self.timeElapsed : float = 0.0
+
     async def perform_fetch_all_books(self):
         async with httpx.AsyncClient() as client:
-            return await client.get(self.baseurl+self.books_base_endpoint)
+            startTime = time.perf_counter()
+            response =  await client.get(self.baseurl+self.books_base_endpoint)
+            endTime = time.perf_counter()
+            self.timeElapsed = endTime - startTime
+            return response
     
     def check_response_jsonSchema() -> bool:
         raise NotImplementedError
@@ -34,11 +37,16 @@ class AllBooks(BookStore):
 class BookByBookId(BookStore):
     def __init__(self):
         super().__init__()
+        self.timeElapsed : float = 0.0
 
     async def perform_fetch_book_by_id(self,id:str):
         async with httpx.AsyncClient() as client:
             url : str = self.baseurl + '/BookStore/V1/Book?ISBN=' + id
-            return await client.get(url)
+            startTime = time.perf_counter()
+            response = await client.get(url)
+            endTime = time.perf_counter()
+            self.timeElapsed = endTime - startTime
+            return response
 
     def check_response_jsonSchema() -> bool:
         raise NotImplementedError

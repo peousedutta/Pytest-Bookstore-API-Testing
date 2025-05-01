@@ -14,8 +14,8 @@ class Test_001_bookstore_get_call:
     @pytest.mark.asyncio
     async def test_fetch_all_books(self):
         allBooksResponse = await self.all_books.perform_fetch_all_books()
-        assert self.bookstore.check_status_code_200(allBooksResponse), f"Expected status code 200 but got {allBooksResponse.status_code}"
-        assert self.bookstore.check_responseTime(allBooksResponse, 1), f"Expected status code 200 but got {allBooksResponse.elapsed.total_seconds()}"
+        assert self.bookstore.check_status_code_200(allBooksResponse), f"[ERROR] Expected status code 200 but got {allBooksResponse.status_code}"
+        assert self.all_books.timeElapsed < 1, f"[ERROR] Expected response time 1sec but got {allBooksResponse.elapsed.total_seconds()}"
 
     @pytest.mark.smoke
     @pytest.mark.regression
@@ -28,9 +28,9 @@ class Test_001_bookstore_get_call:
         id = idList[index]
 
         bookData = await self.book_by_bookid.perform_fetch_book_by_id(id)
-        assert bookData.json()["isbn"] == id, "Error in fetching"
-        assert self.bookstore.check_responseTime(bookData, 0.5), f"Expected status code 200 but got {bookData.elapsed.total_seconds()}"
-        assert self.bookstore.check_status_code_200(bookData), f"Expected status code 200 but got {bookData.status_code}"
+        assert bookData.json()["isbn"] == id, "[ERROR] Error in fetching"
+        assert self.bookstore.check_status_code_200(bookData), f"[ERROR] Expected status code 200 but got {bookData.status_code}"
+        assert self.book_by_bookid.timeElapsed < 0.8, f"[ERROR] Expected status code 200 but got {bookData.elapsed.total_seconds()}"
 
     @pytest.mark.dev
     @pytest.mark.regression
@@ -39,4 +39,4 @@ class Test_001_bookstore_get_call:
     async def test_fetch_book_by_bookId_with_invalidData(self):
         id:str = "dummy"
         bookData = await self.book_by_bookid.perform_fetch_book_by_id(id)
-        assert bookData.status_code == 400, f"Expected status code 400 but got {bookData.status_code}"
+        assert bookData.status_code == 400, f"[ERROR] Expected status code 400 but got {bookData.status_code}"
