@@ -1,8 +1,11 @@
+import os
 from configparser import ConfigParser
 
 config = ConfigParser()
 
-config.read("../configurations/config.ini")
+# Get the absolute path of the config file
+config_path = os.path.join(os.path.dirname(__file__), "../configurations/config.ini")
+config.read(config_path)
 
 class ReadConfig:
     @staticmethod

@@ -4,5 +4,3 @@ httpx
 configparser
 pytest-asyncio
 pytest-html
-os
-sys
