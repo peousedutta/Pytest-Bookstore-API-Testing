@@ -8,8 +8,7 @@ This project demonstrates automated API testing using **Pytest** with **fixtures
 
 - Python 3.10+
 - Pytest
-- Requests
-- dotenv (for environment variable management)
+- httpx
 - Pytest plugins (e.g., pytest-html, pytest-xdist)
 
 ---
