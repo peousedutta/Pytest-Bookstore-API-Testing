@@ -1,4 +1,4 @@
-name: Custom CI
+name: Cron CI
 
 on: 
   schedule:
