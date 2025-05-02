@@ -3,9 +3,11 @@ name: Custom CI
 on: 
   push :
     branches : [ main ]
+  schedule:
+    - cron: '45 15 * * *'
 
 jobs:
-  build-linux:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,5 +31,11 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     
     - name: Test regression of code
+      if: github.event_name == 'push'
       run: |
         pytest tests/test_bookstore_fetch_apis.py -m regression
+
+    - name: Test regression of code
+      if: github.event_name == 'schedule'
+      run: |
+        pytest tests/test_bookstore_fetch_apis.py -m smoke
