@@ -32,4 +32,4 @@ jobs:
     - name: Heath checkup
       if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
       run: |
-        pytest tests/test_bookstore_fetch_apis.py -m smoke
+        pytest --env=dev test_bookstore_fetch_apis.py -m smoke -v -s --html=../reports/report.html --self-contained-html

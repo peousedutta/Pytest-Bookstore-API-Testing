@@ -5,7 +5,6 @@ from utilities.ReadConfigurations import ReadConfig
 class BookStore:
     def __init__(self):
         self.books_base_endpoint:str = '/BookStore/V1/Books'
-        self.baseurl = ReadConfig.getApplicationUrl()
     
     def check_status_code_200(self, response) -> bool:
         if response.status_code == 200:
@@ -22,15 +21,16 @@ class AllBooks(BookStore):
         super().__init__()
         self.timeElapsed : float = 0.0
 
-    async def perform_fetch_all_books(self):
+
+    async def perform_fetch_all_books(self, baseurl:str):
         async with httpx.AsyncClient() as client:
             startTime = time.perf_counter()
-            response =  await client.get(self.baseurl+self.books_base_endpoint)
+            response =  await client.get(baseurl+self.books_base_endpoint)
             endTime = time.perf_counter()
             self.timeElapsed = endTime - startTime
             return response
     
-    def check_response_jsonSchema() -> bool:
+    def check_response_jsonSchema(self) -> bool:
         raise NotImplementedError
 
 
@@ -39,14 +39,14 @@ class BookByBookId(BookStore):
         super().__init__()
         self.timeElapsed : float = 0.0
 
-    async def perform_fetch_book_by_id(self,id:str):
+    async def perform_fetch_book_by_id(self,id:str, baseurl:str):
         async with httpx.AsyncClient() as client:
-            url : str = self.baseurl + '/BookStore/V1/Book?ISBN=' + id
+            url : str = baseurl + '/BookStore/V1/Book?ISBN=' + id
             startTime = time.perf_counter()
             response = await client.get(url)
             endTime = time.perf_counter()
             self.timeElapsed = endTime - startTime
             return response
 
-    def check_response_jsonSchema() -> bool:
+    def check_response_jsonSchema(self) -> bool:
         raise NotImplementedError

@@ -11,10 +11,10 @@ config.read(config_path)
 
 class ReadConfig:
     @staticmethod
-    def getApplicationUrl():
+    def getApplicationUrl(env:str):
         try:
-            print("[DEBUG] -- URL --", config.get('info','baseurl'))
-            return config.get('info','baseurl')
+            print("[DEBUG] -- URL --", config.get(env,'baseurl'))
+            return config.get(env,'baseurl')
         except Exception as err:
             raise Exception(f"[ERROR] Exception occured while fetch base url got --> {err}")
     @staticmethod

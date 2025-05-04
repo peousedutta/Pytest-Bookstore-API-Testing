@@ -5,11 +5,17 @@ import pytest
 import httpx
 from utilities.ReadConfigurations import ReadConfig
 
-configs = ReadConfig()
 
-SLACK_WEBHOOK = configs.getSlackWebHook()
+def pytest_addoption(parser):
+    parser.addoption(
+        "--env", 
+        action="store", 
+        default="dev", 
+        help="Environment to run tests against: dev/beta/prod"
+    )
 
 def send_slack_message(message: str):
+    SLACK_WEBHOOK = ReadConfig().getSlackWebHook()
     payload = {"text": message}
     try:
         response = httpx.post(SLACK_WEBHOOK, json=payload, timeout=5)
@@ -22,8 +28,15 @@ def send_slack_message(message: str):
 def pytest_runtest_makereport(item, call):
     outcome = yield
     result = outcome.get_result()
-
     if result.when == 'call' and result.failed:
         test_name = item.name  # Only "test_login"
         message = f":x: *{test_name} failed*"
         send_slack_message(message)
+
+@pytest.fixture(scope="session")
+def env_base_url(request):
+    env = request.config.getoption("--env")
+    baseurl = ReadConfig().getApplicationUrl(env)
+    if not baseurl:
+        baseurl = "https://bookstore.toolsqa.com"
+    return baseurl
