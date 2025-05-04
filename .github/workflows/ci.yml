@@ -31,4 +31,4 @@ jobs:
     - name: Test regression of code
       if: github.event_name == 'push'
       run: |
-        pytest --env=dev test_bookstore_fetch_apis.py -m regression -v -s --html=../reports/report.html --self-contained-html
+        pytest --env=dev tests/test_bookstore_fetch_apis.py -m regression -v -s --html=../reports/report.html --self-contained-html
