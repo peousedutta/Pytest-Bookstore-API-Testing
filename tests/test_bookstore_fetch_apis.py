@@ -17,6 +17,7 @@ class Test_001_bookstore_get_call:
         assert self.bookstore.check_status_code_200(allBooksResponse), f"[ERROR] Expected status code 200 but got {allBooksResponse.status_code}"
         assert self.all_books.timeElapsed < 1, f"[ERROR] Expected response time 1sec but got {allBooksResponse.elapsed.total_seconds()}"
 
+    # @pytest.mark.parametrize("id", datafromCi)
     @pytest.mark.smoke
     @pytest.mark.regression
     @pytest.mark.asyncio
@@ -30,7 +31,7 @@ class Test_001_bookstore_get_call:
         bookData = await self.book_by_bookid.perform_fetch_book_by_id(id)
         assert bookData.json()["isbn"] == id, "[ERROR] Error in fetching"
         assert self.bookstore.check_status_code_200(bookData), f"[ERROR] Expected status code 200 but got {bookData.status_code}"
-        assert self.book_by_bookid.timeElapsed < 0.8, f"[ERROR] Expected status code 200 but got {bookData.elapsed.total_seconds()}"
+        assert self.book_by_bookid.timeElapsed < 0.2, f"[ERROR] Expected response time 0.8s but got {bookData.elapsed.total_seconds()}"
 
     @pytest.mark.dev
     @pytest.mark.regression

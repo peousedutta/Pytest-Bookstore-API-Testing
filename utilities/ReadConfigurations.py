@@ -1,5 +1,7 @@
 import os
+import httpx
 from configparser import ConfigParser
+
 
 config = ConfigParser()
 
@@ -15,3 +17,9 @@ class ReadConfig:
             return config.get('info','baseurl')
         except Exception as err:
             raise Exception(f"[ERROR] Exception occured while fetch base url got --> {err}")
+    @staticmethod
+    def getSlackWebHook():
+        try:
+            return config.get('info','slackwebhook')
+        except Exception as err:
+            raise Exception(f"[ERROR] Exception occured while fetch slack web hook --> {err}")
