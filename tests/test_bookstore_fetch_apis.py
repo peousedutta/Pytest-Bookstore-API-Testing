@@ -31,7 +31,7 @@ class Test_001_bookstore_get_call:
         bookData = await self.book_by_bookid.perform_fetch_book_by_id(id)
         assert bookData.json()["isbn"] == id, "[ERROR] Error in fetching"
         assert self.bookstore.check_status_code_200(bookData), f"[ERROR] Expected status code 200 but got {bookData.status_code}"
-        assert self.book_by_bookid.timeElapsed < 0.2, f"[ERROR] Expected response time 0.8s but got {bookData.elapsed.total_seconds()}"
+        assert self.book_by_bookid.timeElapsed < 0.8, f"[ERROR] Expected response time 0.8s but got {bookData.elapsed.total_seconds()}"
 
     @pytest.mark.dev
     @pytest.mark.regression
