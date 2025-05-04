@@ -4,3 +4,4 @@ httpx
 configparser
 pytest-asyncio
 pytest-html
+pytest-sugar
