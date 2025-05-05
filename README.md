@@ -1,6 +1,7 @@
 # 📚 Book Store API Testing with Pytest
 
-This project demonstrates automated API testing using **Pytest** with **fixtures**, targeting the public [ToolsQA Book Store API](https://bookstore.toolsqa.com/swagger/). It covers a range of scenarios including authentication, CRUD operations, and negative tests.
+This project demonstrates automated API testing using **Pytest** with **fixtures**, targeting the public [ToolsQA Book Store API](https://bookstore.toolsqa.com/swagger/). 
+It covers a range of scenarios including authentication, CRUD operations, and negative tests.
 
 ---
 
@@ -9,7 +10,7 @@ This project demonstrates automated API testing using **Pytest** with **fixtures
 - Python 3.10+
 - Pytest
 - httpx
-- Pytest plugins (e.g., pytest-html, pytest-xdist)
+- Pytest plugins (e.g., pytest-html)
 
 ---
 
