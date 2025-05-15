@@ -10,7 +10,7 @@ It covers a range of scenarios including authentication, CRUD operations, and ne
 - Python 3.10+
 - Pytest
 - httpx
-- Pytest plugins (e.g., pytest-html)
+- HTML Reporting
 
 ---
 
